@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Pro Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        section {
+            margin: 20px;
+            padding: 20px;
+        }
+        .ending {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: #45a1ff;
+            color: #fff;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        .ending:hover {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar sticky-top bg-body-tertiary" style="background-color:blue;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#home">The Project Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More Options
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home">
+        <h1>Welcome to the big project page.</h1><br>
+        <p>Just play thru my class projects when you are super bored and need to mess up with these idiotomous stuffs</p>
+    </section>
+
+    <section id="rock-paper-scissors">
+        <details open>
+            <summary>Play the hardest Rock, Paper, Scissors</summary>
+            <h2>Play the hardest rock, paper, scissors you have ever seen in your whole life!!</h2>
+            <form class="form-control mt-3" onsubmit="submitForm(event)">
+                <p>Select your difficulty:</p>
+                <input type="radio" name="quiz" value="impossible" id="impossible">
+                <label for="impossible">Impossible</label>
+                <input type="radio" name="quiz" value="normal" id="normal">
+                <label for="normal">Normal</label>
+                <input type="radio" name="quiz" value="random" id="random">
+                <label for="random">Random (Recommended)</label><br>
+
+                <select name="move" id="move" class="form-select mt-2">
+                    <option value="">Select your move...</option>
+                    <option value="rock">Rock</option>
+                    <option value="paper">Paper</option>
+                    <option value="scissors">Scissors</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary mt-3">TRY I</button>
+            </form>
+
+            <div id="ans" class="mt-3"></div>
+
+            <script>
+                function submitForm(event) {
+                    event.preventDefault();
+                    const level = document.querySelector('input[name="quiz"]:checked');
+                    const move = document.getElementById('move').value;
+                    const result = document.getElementById('ans');
+
+                    if (!level || !move) {
+                        result.innerHTML = '<b>WAIT A MIN!!!</b> Are you living a world without desisions? Sellect your move, or level, or both!!! <br> <hr size="1" noshade> <small>P.S: You can only dimiss the message only when you have chosen your desion.</small>';
+                        result.className = 'alert alert-danger';
+                        return;
+                    }
+
+                    if (level.value === 'impossible') {
+                        impossible(move);
+                    } else if (level.value === 'normal') {
+                        normal(move);
+                    } else {
+                        random(move);
+                    }
+                }
+
+                function impossible(userMove) {
+                    const result = document.getElementById('ans');
+                    let computerMove;
+
+                    if (userMove === 'rock') {
+                        computerMove = 'paper';
+                    } else if (userMove === 'paper') {
+                        computerMove = 'scissors';
+                    } else {
+                        computerMove = 'rock';
+                    }
+
+                    result.innerHTML = `<b>HAHAHHAHAHAH</b> I chose ${computerMove}, but you fool chose ${userMove}.`;
+                    result.className = 'alert alert-danger';
+                }
+
+                function normal(userMove) {
+                    const result = document.getElementById('ans');
+                    const moves = ['rock', 'paper', 'scissors'];
+                    const computerMove = moves[Math.floor(Math.random() * 3)];
+
+                    if (userMove === computerMove) {
+                        result.innerHTML = `<b>Tie! Meh!</b> We both chose ${computerMove}.`;
+                        result.className = 'alert alert-info';
+                    } else if (
+                        (userMove === 'rock' && computerMove === 'scissors') ||
+                        (userMove === 'paper' && computerMove === 'rock') ||
+                        (userMove === 'scissors' && computerMove === 'paper')
+                    ) {
+                        result.innerHTML = `<b>YAY!!!</b> I chose ${computerMove}, but you chose ${userMove}. And the winner is, you know!`;
+                        result.className = 'alert alert-success';
+                    } else {
+                        result.innerHTML = `<b>HAHAHAHAHAHA</b> I chose ${computerMove}, but you fool chose ${userMove}!`;
+                        result.className = 'alert alert-danger';
+                    }
+                }
+
+                function random(userMove) {
+                let chance = math.random(2)
+                if (chance === 1) {
+                    impossible(userMove)
+                } else if (chance === 2) {
+                    normal(userMove)
+                } else {
+                    console.log("Something's wrong here, bros.")
+                    alert("Something's wrong here, bros. You discovered a easter egg!!!")
+                    console.log("Cuz that won't happen, meh.")
+                }
+                }
+            </script>
+        </details>
+    </section>
+    <section id="Guess" class="mt-3">
+       <details open>
+<summary>Guess the number, but you will never guess that number</summary>
+<h2>Try to guess, but you will never guess</h2><Br>
+<h3>How to play:</h3>
+<p>How to play is simple: you will guess a number between 1 to 100 and type it in the brackets and click "TRY I" <br>
+But, the hard thingy is, I will tell you how close you are and the actual number if you guessed wrong. <br>
+If you think that's easy cuz you could know it already and beat the game, actually the number changes every time! <Br>
+You can still change the number if you love to by clicking "shuffle"
+</p>
+<small>P/S: this project's in dev TT_TT (Stay tuned!!)</small>
+       </details> 
+    </section>
+
+</body>
+<footer class="ending">
+    End of page. Why the hell do you just always love to read this thing??? Only <a href="https://www.urbandictionary.com/define.php?term=Idiotom">idiotomouses</a> read that thrash to waste their time.
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</footer>
+</html>
